@@ -1,0 +1,16 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b5ed7"/>
+      <stop offset="100%" stop-color="#dc3545"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield -->
+  <path d="M128 16l84 32v64c0 60-46 98-84 128-38-30-84-68-84-128V48l84-32z" fill="url(#rg)" />
+  <!-- Eye / lens -->
+  <circle cx="128" cy="112" r="34" fill="#ffffff" opacity="0.95"/>
+  <circle cx="128" cy="112" r="18" fill="#0b5ed7"/>
+  <circle cx="136" cy="104" r="6" fill="#ffffff"/>
+  <!-- Checkmark for governance/compliance -->
+  <path d="M92 146l16 16 44-44" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

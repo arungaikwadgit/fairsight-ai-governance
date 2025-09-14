@@ -1,0 +1,28 @@
+/* styles.css */
+.app-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: #1c1f24;
+  display: flex;
+  align-items: center;
+}
+/* palette accents */
+:root {
+  --brand-blue:#0b5ed7;
+  --brand-red:#dc3545;
+  --brand-white:#ffffff;
+}
+/* cards */
+.stContainer > div {
+  border-radius: 16px !important;
+}
+/* buttons */
+button[kind="primary"] {
+  background: linear-gradient(90deg, var(--brand-blue), var(--brand-red)) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+}
+/* headings */
+h1, h2, h3, h4 { color: #13294b !important; }
