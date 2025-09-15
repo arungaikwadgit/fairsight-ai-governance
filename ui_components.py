@@ -1,5 +1,5 @@
 # ui_components.py
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import time
 import streamlit as st
 
@@ -18,7 +18,7 @@ def render_topbar():
             if logo_path.exists():
                 st.image(str(logo_path), use_column_width=True)
             else:
-                # Fallback color block if logo missing
+                # Fallback if logo missing
                 st.markdown(
                     "<div style='width:48px;height:48px;border-radius:12px;"
                     "background:linear-gradient(45deg,#0b5ed7,#dc3545)'></div>",
@@ -31,10 +31,8 @@ def render_topbar():
             st.caption(f"Signed in as **{st.session_state.get('auth_user')}** ({st.session_state.get('role')})")
 
 def render_footer():
-    st.markdown(
-        "<div class='app-footer'>© Arun Gaikwad, Software Engg Manager</div>",
-        unsafe_allow_html=True,
-    )
+    # Styled via .app-footer in styles.css (blue background, white text)
+    st.markdown("<div class='app-footer'>© Arun Gaikwad, Software Engg Manager</div>", unsafe_allow_html=True)
 
 # ---------- Home Header / Gate Tabs ----------
 
@@ -49,25 +47,35 @@ def render_home_header(db):
     st.session_state["open_project"] = options[choice]
 
 def render_gate_tabs(gates: List[Dict[str, Any]], db):
-    labels = [g["gate_id"] for g in gates]
-    if "active_gate" not in st.session_state:
-        st.session_state["active_gate"] = labels[0] if labels else ""
-    chosen = st.radio(
+    # Show tabs as "G#-<GateName>" while keeping internal gate_id
+    label_map = {f"{g['gate_id']}-{g['gate_name']}": g["gate_id"] for g in gates}
+    labels = list(label_map.keys())
+
+    if "active_gate" not in st.session_state and labels:
+        st.session_state["active_gate"] = label_map[labels[0]]
+
+    try:
+        default_idx = labels.index(next(lbl for lbl, gid in label_map.items() if gid == st.session_state.get("active_gate")))
+    except StopIteration:
+        default_idx = 0
+
+    chosen_label = st.radio(
         "Gates",
         labels,
         horizontal=True,
         label_visibility="collapsed",
-        index=labels.index(st.session_state["active_gate"]) if st.session_state["active_gate"] in labels else 0,
+        index=default_idx if labels else 0,
     )
-    st.session_state["active_gate"] = chosen
-    return chosen, labels
+    chosen_gate_id = label_map[chosen_label]
+    st.session_state["active_gate"] = chosen_gate_id
+    return chosen_gate_id, [g["gate_id"] for g in gates]
 
 # ---------- Keys for session "modals" ----------
 
-def _artifact_modal_key(gate_id, artifact_key):
+def _artifact_modal_key(gate_id: str, artifact_key: str) -> str:
     return f"artifact_modal_{gate_id}_{artifact_key}"
 
-def _ai_modal_key(gate_id, artifact_key):
+def _ai_modal_key(gate_id: str, artifact_key: str) -> str:
     return f"ai_modal_{gate_id}_{artifact_key}"
 
 # ---------- Swimlane Table (main home UI) ----------
@@ -81,15 +89,12 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
     proj = db.get_project(pid)
     role = st.session_state.get("role", "")
 
-    # Current gate state from inline DB (active gate only)
+    # Active gate state only
     gate_state = proj.get("gates", {}).get(gate_obj["gate_id"], {})
     cp_map = gate_state.get("checkpoints", {})
 
     # Overall gate status (override-aware)
-    decisions = [
-        cp_map.get(cp["artifact_key"], {}).get("decision", "Pending")
-        for cp in gate_obj["checkpoints"]
-    ]
+    decisions = [cp_map.get(cp["artifact_key"], {}).get("decision", "Pending") for cp in gate_obj["checkpoints"]]
     if gate_state.get("overridden"):
         overall = gate_state.get("gate_status", "Pending")
         st.markdown(f"**Overall Gate Status (CAIO Override):** :blue[{overall}]")
@@ -113,10 +118,10 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
     for cp in gate_obj["checkpoints"]:
         row = st.columns([3, 3, 2, 2, 3])
 
-        # 0) Checkpoint (plain text, NOT clickable)
+        # 0) Checkpoint (plain text, NOT clickable) — from Excel "Checkpoint"
         row[0].write(cp.get("checkpoint", "—"))
 
-        # 1) Artifact (clickable -> opens artifact editor)
+        # 1) Artifact (clickable) — from Excel "Artifacts Produced"
         if row[1].button(
             cp["artifact"],
             key=f"art_{gate_obj['gate_id']}_{cp['artifact_key']}",
@@ -138,7 +143,7 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
         override_value = gate_state.get("gate_status", "Pending") if override_active else None
         effective_decision = override_value if override_active else cur_decision
 
-        # Decision dropdown (label must be non-empty; hide visually)
+        # Decision dropdown (non-empty label; visually collapsed)
         with dec_col:
             new_decision = st.selectbox(
                 "Decision",
@@ -148,6 +153,10 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
                 disabled=True if override_active else not reviewer_only,
                 label_visibility="collapsed",
             )
+
+        # Precompute artifact payload presence for AI gating
+        artifact_payload = cp_map.get(cp["artifact_key"], {}).get("payload", {}) or db.get_artifact_payload(pid, cp["artifact_key"]) or {}
+        has_artifact = bool(artifact_payload)
 
         # AI suggestion (locked if overridden)
         with ai_col:
@@ -175,7 +184,7 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
             st.markdown("---")
             st.markdown(f"### Artifact — {cp['artifact']}")
             # Prefill from current gate or shared payload across gates
-            payload = cp_map.get(cp["artifact_key"], {}).get("payload", {}) or db.get_artifact_payload(pid, cp["artifact_key"]) or {}
+            payload = artifact_payload
             with st.form(f"artifact_form_{gate_obj['gate_id']}_{cp['artifact_key']}", clear_on_submit=False):
                 desc = st.text_area("Description / Evidence", value=payload.get("desc", ""))
                 link = st.text_input("Link to evidence (optional)", value=payload.get("link", ""))
@@ -197,28 +206,49 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
                 st.session_state[_artifact_modal_key(gate_obj["gate_id"], cp["artifact_key"])] = False
                 st.rerun()
 
-        # -------- AI Suggestion "modal" (container emulation) --------
+        # -------- AI Suggestion "modal" (container emulation, new look) --------
         if st.session_state.get(_ai_modal_key(gate_obj["gate_id"], cp["artifact_key"])):
             st.markdown("---")
-            st.markdown("### AI Suggestion")
+            # Styled card
+            st.markdown(
+                """
+                <div style="
+                    border:1px solid #e3e6ea;padding:16px;border-radius:10px;
+                    background:#041329;">
+                    <h4 style="margin:0 0 8px 0;">AI Suggestion</h4>
+                """,
+                unsafe_allow_html=True,
+            )
+
             from ai import recommend_for_checkpoint
-            suggestion = recommend_for_checkpoint(proj, gate_obj, cp)
+            suggestion = recommend_for_checkpoint(
+                proj, gate_obj, cp,
+                has_artifact=has_artifact,
+                payload=artifact_payload
+            )
             st.code(suggestion, language="markdown")
+
+            if not has_artifact:
+                st.warning("No artifact data found. The assistant will not recommend **Approve** without evidence.")
+
             c1, c2 = st.columns(2)
             apply_click = c1.button("Apply Suggestion", key=f"apply_{gate_obj['gate_id']}_{cp['artifact_key']}")
             dismiss_click = c2.button("Dismiss", key=f"dismiss_{gate_obj['gate_id']}_{cp['artifact_key']}")
             if apply_click:
-                decision = (
-                    "Approve" if "Suggested decision:** Approve" in suggestion
+                # Parse decision safely; never approve without artifact
+                parsed = (
+                    "Approve" if ("Suggested decision:** Approve" in suggestion and has_artifact)
                     else "Reject" if "Suggested decision:** Reject" in suggestion
                     else "ReScope" if "Suggested decision:** ReScope" in suggestion
                     else "Pending"
                 )
+                if (parsed == "Approve") and (not has_artifact):
+                    parsed = "Pending"
                 db.save_checkpoint_decision(
                     pid,
                     gate_obj["gate_id"],
                     cp["artifact_key"],
-                    decision,
+                    parsed,
                     st.session_state.get("auth_user", "unknown"),
                 )
                 st.session_state[_ai_modal_key(gate_obj["gate_id"], cp["artifact_key"])] = False
@@ -226,6 +256,8 @@ def render_swimlane_table(db, gate_obj: Dict[str, Any], CONFIG: Dict[str, Any]):
             if dismiss_click:
                 st.session_state[_ai_modal_key(gate_obj["gate_id"], cp["artifact_key"])] = False
                 st.rerun()
+
+            st.markdown("</div>", unsafe_allow_html=True)  # close styled card
 
     # ----- CAIO override for gate status (ACTIVE GATE ONLY) -----
     if st.session_state.get("role", "") == "ChiefAIOfficer":
@@ -360,7 +392,7 @@ def render_help_page(CONFIG):
 5. **Overall Gate Status** auto-updates; CAIO can **Override** the active gate.
 6. **CXO Dashboard** shows KPIs and charts.
 7. **Add Project** creates a new record.
-8. **Settings (CAIO)** sets the OpenAPI key and model for AI suggestions.
+8. **Settings (CAIO)** sets the OpenAPI key, model, and can **Clear Session**.
         """
     )
 
@@ -372,6 +404,7 @@ def render_settings_page(db):
     if not is_caio(role):
         st.error("Settings are restricted to the Chief AI Officer.")
         return
+
     st.markdown("Manage OpenAPI credentials used for AI recommendations.")
     current = db.get_settings()
     with st.form("settings_form", clear_on_submit=False):
@@ -382,14 +415,29 @@ def render_settings_page(db):
             help="Key is stored obfuscated locally (DB). Leave blank to keep current.",
         )
         model = st.text_input("Model (e.g., gpt-4o-mini)", value=current.get("openapi_model", "gpt-4o-mini"))
-        c1, c2 = st.columns(2)
+        c1, c2, c3 = st.columns(3)
         save = c1.form_submit_button("Save", type="primary")
         clear = c2.form_submit_button("Clear Key")
+        clear_session = c3.form_submit_button("Clear Session")  # CAIO-only
+
     if save:
         db.save_openapi_key(api_key.strip(), model.strip() if model.strip() else None)
         st.success("Settings saved.")
         st.rerun()
+
     if clear:
         db.clear_openapi_key()
         st.success("API key cleared.")
+        st.rerun()
+
+    if clear_session:
+        # Remove common session keys
+        for k in ["auth_user", "role", "page", "open_project", "active_gate"]:
+            if k in st.session_state:
+                del st.session_state[k]
+        # Clear any modal state keys
+        for k in list(st.session_state.keys()):
+            if k.startswith("artifact_modal_") or k.startswith("ai_modal_"):
+                del st.session_state[k]
+        st.success("Session cleared.")
         st.rerun()

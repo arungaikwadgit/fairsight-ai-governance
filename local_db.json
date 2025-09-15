@@ -344,6 +344,101 @@
       "updated_at": 1757911306.7116303,
       "id": "p_1757911306722",
       "gates": {}
+    },
+    {
+      "name": "sample page",
+      "description": "sdfgdsfs",
+      "owner": "asfdsgsd",
+      "status": "ONGOING",
+      "current_gate_id": "G0",
+      "created_at": 1757914854.0416996,
+      "updated_at": 1757914854.0416996,
+      "id": "p_1757914854050",
+      "gates": {
+        "G0": {
+          "checkpoints": {
+            "use-case-brief": {
+              "payload": {
+                "desc": "dfgdfgd",
+                "link": "gdfgdfgd",
+                "notes": "dfgdfgdfgd"
+              },
+              "updated_by": "caios",
+              "updated_at": 1757914910.0528197,
+              "decision": "Approve",
+              "decided_by": "caios",
+              "decided_at": 1757915075.5310464
+            },
+            "ethics-alignment-note": {
+              "decision": "Approve",
+              "decided_by": "caios",
+              "decided_at": 1757915075.5820577
+            },
+            "risk-profile-report": {
+              "decision": "Approve",
+              "decided_by": "caios",
+              "decided_at": 1757915075.6359222
+            },
+            "initial-dpia-or-pia": {
+              "decision": "Approve",
+              "decided_by": "caios",
+              "decided_at": 1757915075.6920114
+            },
+            "stakeholder-register": {
+              "decision": "Approve",
+              "decided_by": "caios",
+              "decided_at": 1757915075.7461731
+            }
+          },
+          "gate_status": "Approve",
+          "audit": [
+            {
+              "ts": 1757914910.0528197,
+              "who": "caios",
+              "action": "artifact:use-case-brief:update"
+            },
+            {
+              "ts": 1757915002.0867536,
+              "who": "caios",
+              "action": "checkpoint:use-case-brief:Approve"
+            },
+            {
+              "ts": 1757915075.4731035,
+              "who": "caios",
+              "action": "gate_status:Approve",
+              "reason": "fggfdgd"
+            },
+            {
+              "ts": 1757915075.5310464,
+              "who": "caios",
+              "action": "checkpoint:use-case-brief:Approve"
+            },
+            {
+              "ts": 1757915075.5820577,
+              "who": "caios",
+              "action": "checkpoint:ethics-alignment-note:Approve"
+            },
+            {
+              "ts": 1757915075.6359222,
+              "who": "caios",
+              "action": "checkpoint:risk-profile-report:Approve"
+            },
+            {
+              "ts": 1757915075.6920114,
+              "who": "caios",
+              "action": "checkpoint:initial-dpia-or-pia:Approve"
+            },
+            {
+              "ts": 1757915075.7461731,
+              "who": "caios",
+              "action": "checkpoint:stakeholder-register:Approve"
+            }
+          ],
+          "overridden": true,
+          "override_by": "caios",
+          "override_reason": "fggfdgd"
+        }
+      }
     }
   ],
   "settings": {

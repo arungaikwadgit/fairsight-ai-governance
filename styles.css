@@ -3,3 +3,6 @@
 :root { --brand-blue:#0b5ed7; --brand-red:#dc3545; --brand-white:#ffffff; }
 button[kind="primary"] { background: linear-gradient(90deg, var(--brand-blue), var(--brand-red)) !important; color: #fff !important; border: 0 !important; border-radius: 10px !important; }
 .block-container { padding-bottom: 64px; }
+
+
+
