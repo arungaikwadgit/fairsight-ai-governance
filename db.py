@@ -125,7 +125,7 @@ class DB:
                 gates = p.setdefault("gates", {})
                 gate = gates.setdefault(gate_id, {"checkpoints": {}, "gate_status": "Pending", "audit": []})
                 gate["gate_status"] = status
-                gate["overridden"] = True                 # ← mark as CAIO override
+                gate["overridden"] = True
                 gate["override_by"] = user
                 gate["override_reason"] = reason
                 gate["audit"].append({
@@ -137,7 +137,6 @@ class DB:
                 data["projects"][i] = p
                 self._save(data)
                 return
-
 
 
     def get_artifact_payload(self, pid: str, artifact_key: str):

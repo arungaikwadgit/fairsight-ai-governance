@@ -3,51 +3,51 @@
   "roles": [
     {
       "role": "Chief AI Officer (CDAO)",
-      "permissions": "Set AI risk appetite and policy; sponsor governance; board reporting"
+      "permissions": ""
     },
     {
       "role": "AI Governance Board",
-      "permissions": "Approve high\u2011risk projects; adjudicate exceptions; quarterly reviews"
+      "permissions": ""
     },
     {
       "role": "Head of AI Governance / Governance Officer",
-      "permissions": "Own framework; run gates; ensure adoption; escalate issues"
+      "permissions": ""
     },
     {
       "role": "Responsible AI Officers (Domain)",
-      "permissions": "Domain compliance checks; validate fairness/impact; approve domain risks"
+      "permissions": ""
     },
     {
       "role": "Risk & Compliance Managers",
-      "permissions": "Maintain risk register; audits; regulatory reporting; monitor KRIs"
+      "permissions": ""
     },
     {
       "role": "Security & Privacy Leads",
-      "permissions": "Threat modeling; pen\u2011tests; data protection; incident response"
+      "permissions": ""
     },
     {
       "role": "Fairness & Ethics Leads",
-      "permissions": "Bias detection; mitigation strategy; ethical impact assessments"
+      "permissions": ""
     },
     {
       "role": "Transparency Specialists",
-      "permissions": "Model/Data Cards; explainability packs; scorecards"
+      "permissions": ""
     },
     {
       "role": "AI Project Leads (Responsible Owners)",
-      "permissions": "Accountable for governance completion; coordinate artifacts and fixes"
+      "permissions": ""
     },
     {
       "role": "Data Scientists & ML Engineers",
-      "permissions": "Implement fairness, robustness, explainability; address findings"
+      "permissions": ""
     },
     {
       "role": "MLOps / DevOps Engineers",
-      "permissions": "Monitoring, alerting, rollout/rollback; evidence vault integration"
+      "permissions": ""
     },
     {
       "role": "AI Product Managers",
-      "permissions": "User impact & acceptance criteria; release decisions; stakeholder comms"
+      "permissions": ""
     }
   ],
   "decision_rules": {
@@ -109,58 +109,42 @@
       "gate_name": "Ethics_Fit_Checklist",
       "checkpoints": [
         {
-          "artifact": "Business justification documented",
-          "artifact_key": "business-justification-documented",
+          "checkpoint": "Business justification documented",
+          "artifact": "Use Case Brief",
+          "artifact_key": "use-case-brief",
           "submitted_by_role": "Product Owner",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Ethical alignment with company values",
-          "artifact_key": "ethical-alignment-with-company-values",
+          "checkpoint": "Ethical alignment with company values",
+          "artifact": "Ethics Alignment Note",
+          "artifact_key": "ethics-alignment-note",
           "submitted_by_role": "Governance Officer",
           "reviewed_by_role": "AI Governance Board",
           "initial_status": ""
         },
         {
-          "artifact": "Risk classification (EU AI Act, NIST RMF)",
-          "artifact_key": "risk-classification-eu-ai-act-nist-rmf",
+          "checkpoint": "Risk classification (EU AI Act, NIST RMF)",
+          "artifact": "Risk Profile Report",
+          "artifact_key": "risk-profile-report",
           "submitted_by_role": "Governance Officer",
           "reviewed_by_role": "Chief AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Prohibited use case screening",
-          "artifact_key": "prohibited-use-case-screening",
-          "submitted_by_role": "Governance Officer",
-          "reviewed_by_role": "Chief AI Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Intended user identification",
-          "artifact_key": "intended-user-identification",
-          "submitted_by_role": "AI Product Manager",
-          "reviewed_by_role": "Governance Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Initial DPIA/PIA created",
-          "artifact_key": "initial-dpia-pia-created",
+          "checkpoint": "Initial DPIA/PIA created",
+          "artifact": "Initial DPIA or PIA",
+          "artifact_key": "initial-dpia-or-pia",
           "submitted_by_role": "Compliance Lead",
           "reviewed_by_role": "Responsible AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Stakeholders mapped",
-          "artifact_key": "stakeholders-mapped",
+          "checkpoint": "Stakeholders mapped",
+          "artifact": "Stakeholder Register",
+          "artifact_key": "stakeholder-register",
           "submitted_by_role": "AI Product Manager",
-          "reviewed_by_role": "Governance Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Jurisdiction identified",
-          "artifact_key": "jurisdiction-identified",
-          "submitted_by_role": "Compliance Lead",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         }
@@ -171,59 +155,35 @@
       "gate_name": "Data_Policy_Checklist",
       "checkpoints": [
         {
-          "artifact": "Data consent/licensing validated",
-          "artifact_key": "data-consent-licensing-validated",
+          "checkpoint": "Data consent/licensing validated",
+          "artifact": "Policy Compliance Report",
+          "artifact_key": "policy-compliance-report",
           "submitted_by_role": "Compliance Lead",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Data lineage captured",
-          "artifact_key": "data-lineage-captured",
+          "checkpoint": "Data lineage captured",
+          "artifact": "Data Card",
+          "artifact_key": "data-card",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Responsible AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Data quality assessment",
-          "artifact_key": "data-quality-assessment",
-          "submitted_by_role": "Data Scientist",
-          "reviewed_by_role": "Responsible AI Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Sensitive attributes flagged",
-          "artifact_key": "sensitive-attributes-flagged",
+          "checkpoint": "Sensitive attributes flagged",
+          "artifact": "Data Sensitivity Checklist",
+          "artifact_key": "data-sensitivity-checklist",
           "submitted_by_role": "Responsible AI Officer",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Data Card completed",
-          "artifact_key": "data-card-completed",
-          "submitted_by_role": "Data Scientist",
-          "reviewed_by_role": "Responsible AI Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Regulatory mapping (GDPR/CCPA/HIPAA)",
-          "artifact_key": "regulatory-mapping-gdpr-ccpa-hipaa",
+          "checkpoint": "Regulatory mapping (GDPR/CCPA/HIPAA)",
+          "artifact": "Jurisdiction Mapping Report",
+          "artifact_key": "jurisdiction-mapping-report",
           "submitted_by_role": "Compliance Lead",
           "reviewed_by_role": "Chief AI Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Policy validation executed",
-          "artifact_key": "policy-validation-executed",
-          "submitted_by_role": "Compliance Lead",
-          "reviewed_by_role": "Governance Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Data anonymization/masking status",
-          "artifact_key": "data-anonymization-masking-status",
-          "submitted_by_role": "Compliance Lead",
-          "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         }
       ]
@@ -233,43 +193,41 @@
       "gate_name": "Model_Build_Checklist",
       "checkpoints": [
         {
-          "artifact": "Fairness metrics tested",
-          "artifact_key": "fairness-metrics-tested",
+          "checkpoint": "Fairness metrics tested",
+          "artifact": "Fairness & Robustness Report",
+          "artifact_key": "fairness-robustness-report",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Responsible AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Explainability outputs produced (SHAP/LIME)",
-          "artifact_key": "explainability-outputs-produced-shap-lime",
+          "checkpoint": "Explainability outputs produced (SHAP/LIME)",
+          "artifact": "Explainability Report",
+          "artifact_key": "explainability-report",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Responsible AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Robustness tests executed",
-          "artifact_key": "robustness-tests-executed",
-          "submitted_by_role": "Tech Lead",
-          "reviewed_by_role": "Governance Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Baseline metrics validated",
-          "artifact_key": "baseline-metrics-validated",
+          "checkpoint": "Baseline metrics validated",
+          "artifact": "Model Card v1",
+          "artifact_key": "model-card-v1",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Tech Lead",
           "initial_status": ""
         },
         {
-          "artifact": "Model versioning & lineage captured",
-          "artifact_key": "model-versioning-lineage-captured",
+          "checkpoint": "Model versioning & lineage captured",
+          "artifact": "Model Lineage Record",
+          "artifact_key": "model-lineage-record",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Security vulnerability scan (libs/dependencies)",
-          "artifact_key": "security-vulnerability-scan-libs-dependencies",
+          "checkpoint": "Security vulnerability scan (libs/dependencies)",
+          "artifact": "Security Scan Summary",
+          "artifact_key": "security-scan-summary",
           "submitted_by_role": "Security Lead",
           "reviewed_by_role": "Tech Lead",
           "initial_status": ""
@@ -281,50 +239,57 @@
       "gate_name": "Risk_Compliance_Checklist",
       "checkpoints": [
         {
-          "artifact": "Security penetration tests passed",
-          "artifact_key": "security-penetration-tests-passed",
+          "checkpoint": "Security penetration tests passed",
+          "artifact": "Security Test Report",
+          "artifact_key": "security-test-report",
           "submitted_by_role": "Security Lead",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Privacy & secrets scans completed",
-          "artifact_key": "privacy-secrets-scans-completed",
+          "checkpoint": "Privacy & secrets scans completed",
+          "artifact": "Privacy Scan Report",
+          "artifact_key": "privacy-scan-report",
           "submitted_by_role": "Compliance Lead",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "GenAI guardrails validated",
-          "artifact_key": "genai-guardrails-validated",
+          "checkpoint": "GenAI guardrails validated",
+          "artifact": "Guardrails Validation Report",
+          "artifact_key": "guardrails-validation-report",
           "submitted_by_role": "Security Lead",
           "reviewed_by_role": "Responsible AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "SLA/SLO documented",
-          "artifact_key": "sla-slo-documented",
+          "checkpoint": "SLA/SLO documented",
+          "artifact": "SLA/SLO Document",
+          "artifact_key": "sla-slo-document",
           "submitted_by_role": "Product Owner",
           "reviewed_by_role": "Chief AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Residual risk memo approved",
-          "artifact_key": "residual-risk-memo-approved",
+          "checkpoint": "Residual risk memo approved",
+          "artifact": "Residual Risk Memo",
+          "artifact_key": "residual-risk-memo",
           "submitted_by_role": "Governance Officer",
           "reviewed_by_role": "Chief AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Compliance checklist completed",
-          "artifact_key": "compliance-checklist-completed",
+          "checkpoint": "Compliance checklist completed",
+          "artifact": "Compliance Checklist",
+          "artifact_key": "compliance-checklist",
           "submitted_by_role": "Compliance Lead",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Audit logs prepared",
-          "artifact_key": "audit-logs-prepared",
+          "checkpoint": "Audit logs prepared",
+          "artifact": "Audit Log Config",
+          "artifact_key": "audit-log-config",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
@@ -336,42 +301,48 @@
       "gate_name": "Operational_Approval_Checkli",
       "checkpoints": [
         {
-          "artifact": "Monitoring dashboards configured",
-          "artifact_key": "monitoring-dashboards-configured",
+          "checkpoint": "Monitoring dashboards configured",
+          "artifact": "Ops Playbook",
+          "artifact_key": "ops-playbook",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Product Owner",
           "initial_status": ""
         },
         {
-          "artifact": "Alerting setup validated",
-          "artifact_key": "alerting-setup-validated",
+          "checkpoint": "Alerting setup validated",
+          "artifact": "Alert Matrix",
+          "artifact_key": "alert-matrix",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Rollback plan documented",
-          "artifact_key": "rollback-plan-documented",
+          "checkpoint": "Rollback plan documented",
+          "artifact": "Rollback Runbook",
+          "artifact_key": "rollback-runbook",
           "submitted_by_role": "Tech Lead",
           "reviewed_by_role": "Product Owner",
           "initial_status": ""
         },
         {
-          "artifact": "Evidence Vault integration tested",
-          "artifact_key": "evidence-vault-integration-tested",
+          "checkpoint": "Evidence Vault integration tested",
+          "artifact": "Evidence Vault Test Log",
+          "artifact_key": "evidence-vault-test-log",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "On-call responsibilities assigned",
-          "artifact_key": "on-call-responsibilities-assigned",
+          "checkpoint": "On-call responsibilities assigned",
+          "artifact": "On-call Roster",
+          "artifact_key": "on-call-roster",
           "submitted_by_role": "Product Owner",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Release approval sign-off",
+          "checkpoint": "Release approval sign-off",
+          "artifact": "Release Approval Sign-off",
           "artifact_key": "release-approval-sign-off",
           "submitted_by_role": "Product Owner",
           "reviewed_by_role": "Chief AI Officer",
@@ -384,43 +355,41 @@
       "gate_name": "Continuous_Audit_Checklist",
       "checkpoints": [
         {
-          "artifact": "Drift detection running",
-          "artifact_key": "drift-detection-running",
+          "checkpoint": "Drift detection running",
+          "artifact": "Quarterly Governance Scorecard",
+          "artifact_key": "quarterly-governance-scorecard",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Bias detection alerts monitored",
-          "artifact_key": "bias-detection-alerts-monitored",
+          "checkpoint": "Bias detection alerts monitored",
+          "artifact": "Bias Monitoring Log",
+          "artifact_key": "bias-monitoring-log",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Responsible AI Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Quarterly governance review performed",
-          "artifact_key": "quarterly-governance-review-performed",
-          "submitted_by_role": "Governance Officer",
-          "reviewed_by_role": "Chief AI Officer",
-          "initial_status": ""
-        },
-        {
-          "artifact": "Incident log maintained",
-          "artifact_key": "incident-log-maintained",
+          "checkpoint": "Incident log maintained",
+          "artifact": "Incident Log",
+          "artifact_key": "incident-log",
           "submitted_by_role": "MLOps Engineer",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Retraining/redeployment documented",
-          "artifact_key": "retraining-redeployment-documented",
+          "checkpoint": "Retraining/redeployment documented",
+          "artifact": "Retraining Record",
+          "artifact_key": "retraining-record",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
         },
         {
-          "artifact": "Factsheets updated",
-          "artifact_key": "factsheets-updated",
+          "checkpoint": "Factsheets updated",
+          "artifact": "Updated Model/Data Cards",
+          "artifact_key": "updated-model-data-cards",
           "submitted_by_role": "Data Scientist",
           "reviewed_by_role": "Governance Officer",
           "initial_status": ""
@@ -428,5 +397,11 @@
       ]
     }
   ],
-  "artifact_normalization": "lowercase, non-alnum -> '-'"
+  "column_mapping": {
+    "checkpoint": "Checkpoint",
+    "artifact": "Artifacts Produced",
+    "submitted_by_role": "Submitted By",
+    "reviewed_by_role": "Reviewed By",
+    "initial_status": "Status"
+  }
 }

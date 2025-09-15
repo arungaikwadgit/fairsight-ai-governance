@@ -22,9 +22,9 @@
               },
               "updated_by": "caios",
               "updated_at": 1757908540.4850543,
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910270.8524806
+              "decided_at": 1757911450.952827
             },
             "prohibited-use-case-screening": {
               "payload": {
@@ -34,42 +34,42 @@
               },
               "updated_by": "caios",
               "updated_at": 1757908731.4411404,
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910270.9791806
+              "decided_at": 1757911451.0854137
             },
             "ethical-alignment-with-company-values": {
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910270.893404
+              "decided_at": 1757911450.9918249
             },
             "risk-classification-eu-ai-act-nist-rmf": {
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910270.936393
+              "decided_at": 1757911451.0405161
             },
             "intended-user-identification": {
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910271.0216126
+              "decided_at": 1757911451.1311562
             },
             "initial-dpia-pia-created": {
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910271.0649955
+              "decided_at": 1757911451.1761577
             },
             "stakeholders-mapped": {
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910271.1129227
+              "decided_at": 1757911451.2247639
             },
             "jurisdiction-identified": {
-              "decision": "ReScope",
+              "decision": "Pending",
               "decided_by": "caios",
-              "decided_at": 1757910271.15579
+              "decided_at": 1757911451.2747707
             }
           },
-          "gate_status": "ReScope",
+          "gate_status": "Pending",
           "audit": [
             {
               "ts": 1757908540.4850543,
@@ -178,6 +178,128 @@
               "ts": 1757910271.15579,
               "who": "caios",
               "action": "checkpoint:jurisdiction-identified:ReScope"
+            },
+            {
+              "ts": 1757911450.9118304,
+              "who": "caios",
+              "action": "gate_status:Pending",
+              "reason": ""
+            },
+            {
+              "ts": 1757911450.952827,
+              "who": "caios",
+              "action": "checkpoint:business-justification-documented:Pending"
+            },
+            {
+              "ts": 1757911450.9918249,
+              "who": "caios",
+              "action": "checkpoint:ethical-alignment-with-company-values:Pending"
+            },
+            {
+              "ts": 1757911451.0405161,
+              "who": "caios",
+              "action": "checkpoint:risk-classification-eu-ai-act-nist-rmf:Pending"
+            },
+            {
+              "ts": 1757911451.0854137,
+              "who": "caios",
+              "action": "checkpoint:prohibited-use-case-screening:Pending"
+            },
+            {
+              "ts": 1757911451.1311562,
+              "who": "caios",
+              "action": "checkpoint:intended-user-identification:Pending"
+            },
+            {
+              "ts": 1757911451.1761577,
+              "who": "caios",
+              "action": "checkpoint:initial-dpia-pia-created:Pending"
+            },
+            {
+              "ts": 1757911451.2247639,
+              "who": "caios",
+              "action": "checkpoint:stakeholders-mapped:Pending"
+            },
+            {
+              "ts": 1757911451.2747707,
+              "who": "caios",
+              "action": "checkpoint:jurisdiction-identified:Pending"
+            }
+          ],
+          "overridden": true,
+          "override_by": "caios",
+          "override_reason": ""
+        },
+        "G5": {
+          "checkpoints": {
+            "drift-detection-running": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757911466.9445877
+            },
+            "bias-detection-alerts-monitored": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757911466.9969268
+            },
+            "quarterly-governance-review-performed": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757911467.0438673
+            },
+            "incident-log-maintained": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757911467.090733
+            },
+            "retraining-redeployment-documented": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757911467.1370537
+            },
+            "factsheets-updated": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757911467.181797
+            }
+          },
+          "gate_status": "ReScope",
+          "audit": [
+            {
+              "ts": 1757911466.893952,
+              "who": "caios",
+              "action": "gate_status:ReScope",
+              "reason": ""
+            },
+            {
+              "ts": 1757911466.9445877,
+              "who": "caios",
+              "action": "checkpoint:drift-detection-running:ReScope"
+            },
+            {
+              "ts": 1757911466.9969268,
+              "who": "caios",
+              "action": "checkpoint:bias-detection-alerts-monitored:ReScope"
+            },
+            {
+              "ts": 1757911467.0438673,
+              "who": "caios",
+              "action": "checkpoint:quarterly-governance-review-performed:ReScope"
+            },
+            {
+              "ts": 1757911467.090733,
+              "who": "caios",
+              "action": "checkpoint:incident-log-maintained:ReScope"
+            },
+            {
+              "ts": 1757911467.1370537,
+              "who": "caios",
+              "action": "checkpoint:retraining-redeployment-documented:ReScope"
+            },
+            {
+              "ts": 1757911467.181797,
+              "who": "caios",
+              "action": "checkpoint:factsheets-updated:ReScope"
             }
           ],
           "overridden": true,
@@ -210,6 +332,17 @@
       "created_at": 1757907930.7708166,
       "updated_at": 1757907930.7708166,
       "id": "p_1757907930854",
+      "gates": {}
+    },
+    {
+      "name": "Test 01",
+      "description": "cnvbnv",
+      "owner": "nvnvnvn",
+      "status": "ONGOING",
+      "current_gate_id": "G0",
+      "created_at": 1757911306.7116303,
+      "updated_at": 1757911306.7116303,
+      "id": "p_1757911306722",
       "gates": {}
     }
   ],
