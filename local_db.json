@@ -1,0 +1,220 @@
+{
+  "projects": [
+    {
+      "name": "AI Risk Scoring Pilot",
+      "description": "Demo project seeded on first run",
+      "owner": "demo_owner",
+      "type": "Prototype",
+      "start_date": "",
+      "status": "ONGOING",
+      "current_gate_id": "G0",
+      "created_at": 1757907930.7708166,
+      "updated_at": 1757907930.7708166,
+      "id": "p_1757907930778",
+      "gates": {
+        "G0": {
+          "checkpoints": {
+            "business-justification-documented": {
+              "payload": {
+                "desc": "dgdgdgd",
+                "link": "dfgdfg",
+                "notes": "gdfgdfg"
+              },
+              "updated_by": "caios",
+              "updated_at": 1757908540.4850543,
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910270.8524806
+            },
+            "prohibited-use-case-screening": {
+              "payload": {
+                "desc": "asdfsf",
+                "link": "sdfsdfsdf",
+                "notes": "fsdfsdfs"
+              },
+              "updated_by": "caios",
+              "updated_at": 1757908731.4411404,
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910270.9791806
+            },
+            "ethical-alignment-with-company-values": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910270.893404
+            },
+            "risk-classification-eu-ai-act-nist-rmf": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910270.936393
+            },
+            "intended-user-identification": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910271.0216126
+            },
+            "initial-dpia-pia-created": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910271.0649955
+            },
+            "stakeholders-mapped": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910271.1129227
+            },
+            "jurisdiction-identified": {
+              "decision": "ReScope",
+              "decided_by": "caios",
+              "decided_at": 1757910271.15579
+            }
+          },
+          "gate_status": "ReScope",
+          "audit": [
+            {
+              "ts": 1757908540.4850543,
+              "who": "caios",
+              "action": "artifact:business-justification-documented:update"
+            },
+            {
+              "ts": 1757908731.4411404,
+              "who": "caios",
+              "action": "artifact:prohibited-use-case-screening:update"
+            },
+            {
+              "ts": 1757909325.246863,
+              "who": "caios",
+              "action": "gate_status:Approve",
+              "reason": "xdfvsfs"
+            },
+            {
+              "ts": 1757909861.7914498,
+              "who": "caios",
+              "action": "gate_status:Approve",
+              "reason": "gdfgdg"
+            },
+            {
+              "ts": 1757910242.977684,
+              "who": "caios",
+              "action": "checkpoint:business-justification-documented:Approve"
+            },
+            {
+              "ts": 1757910243.1901805,
+              "who": "caios",
+              "action": "checkpoint:ethical-alignment-with-company-values:Approve"
+            },
+            {
+              "ts": 1757910243.4155858,
+              "who": "caios",
+              "action": "checkpoint:risk-classification-eu-ai-act-nist-rmf:Approve"
+            },
+            {
+              "ts": 1757910243.6277087,
+              "who": "caios",
+              "action": "checkpoint:prohibited-use-case-screening:Approve"
+            },
+            {
+              "ts": 1757910243.8448026,
+              "who": "caios",
+              "action": "checkpoint:intended-user-identification:Approve"
+            },
+            {
+              "ts": 1757910244.065988,
+              "who": "caios",
+              "action": "checkpoint:initial-dpia-pia-created:Approve"
+            },
+            {
+              "ts": 1757910244.3285198,
+              "who": "caios",
+              "action": "checkpoint:stakeholders-mapped:Approve"
+            },
+            {
+              "ts": 1757910244.6072612,
+              "who": "caios",
+              "action": "checkpoint:jurisdiction-identified:Approve"
+            },
+            {
+              "ts": 1757910270.802162,
+              "who": "caios",
+              "action": "gate_status:ReScope",
+              "reason": ""
+            },
+            {
+              "ts": 1757910270.8524806,
+              "who": "caios",
+              "action": "checkpoint:business-justification-documented:ReScope"
+            },
+            {
+              "ts": 1757910270.893404,
+              "who": "caios",
+              "action": "checkpoint:ethical-alignment-with-company-values:ReScope"
+            },
+            {
+              "ts": 1757910270.936393,
+              "who": "caios",
+              "action": "checkpoint:risk-classification-eu-ai-act-nist-rmf:ReScope"
+            },
+            {
+              "ts": 1757910270.9791806,
+              "who": "caios",
+              "action": "checkpoint:prohibited-use-case-screening:ReScope"
+            },
+            {
+              "ts": 1757910271.0216126,
+              "who": "caios",
+              "action": "checkpoint:intended-user-identification:ReScope"
+            },
+            {
+              "ts": 1757910271.0649955,
+              "who": "caios",
+              "action": "checkpoint:initial-dpia-pia-created:ReScope"
+            },
+            {
+              "ts": 1757910271.1129227,
+              "who": "caios",
+              "action": "checkpoint:stakeholders-mapped:ReScope"
+            },
+            {
+              "ts": 1757910271.15579,
+              "who": "caios",
+              "action": "checkpoint:jurisdiction-identified:ReScope"
+            }
+          ],
+          "overridden": true,
+          "override_by": "caios",
+          "override_reason": ""
+        }
+      }
+    },
+    {
+      "name": "Customer Chatbot Revamp",
+      "description": "Demo project seeded on first run",
+      "owner": "demo_owner",
+      "type": "Prototype",
+      "start_date": "",
+      "status": "ONGOING",
+      "current_gate_id": "G0",
+      "created_at": 1757907930.7708166,
+      "updated_at": 1757907930.7708166,
+      "id": "p_1757907930818",
+      "gates": {}
+    },
+    {
+      "name": "Forecast Model V2",
+      "description": "Demo project seeded on first run",
+      "owner": "demo_owner",
+      "type": "Prototype",
+      "start_date": "",
+      "status": "ONGOING",
+      "current_gate_id": "G0",
+      "created_at": 1757907930.7708166,
+      "updated_at": 1757907930.7708166,
+      "id": "p_1757907930854",
+      "gates": {}
+    }
+  ],
+  "settings": {
+    "openapi_key_obf": "c2stcHJvai1FX0ZSd2NJZGV5SUdFVGVuMVNjZGxUZGE4akJKWEx1TWphREJHaHdJajdCLWNuWTY2c25sNDgxcDNSZXNmUWZIZ3B3NVZNc1lOT1QzQmxia0ZKTkZ3amdRb0NFVkRRTktrZzNDYUdfcS1DYjVpakFnaWVtMFh5c3VBd1lGSFAtcHZBQTRqcHBfM1BUNG11S0RiUEEzRExNd1R6a0E=",
+    "openapi_model": "gpt-4o-mini"
+  }
+}

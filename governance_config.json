@@ -1,0 +1,432 @@
+{
+  "source_excel": "YTrustAI_G0_to_G5_Checklists_with_Roles.xlsx",
+  "roles": [
+    {
+      "role": "Chief AI Officer (CDAO)",
+      "permissions": "Set AI risk appetite and policy; sponsor governance; board reporting"
+    },
+    {
+      "role": "AI Governance Board",
+      "permissions": "Approve high\u2011risk projects; adjudicate exceptions; quarterly reviews"
+    },
+    {
+      "role": "Head of AI Governance / Governance Officer",
+      "permissions": "Own framework; run gates; ensure adoption; escalate issues"
+    },
+    {
+      "role": "Responsible AI Officers (Domain)",
+      "permissions": "Domain compliance checks; validate fairness/impact; approve domain risks"
+    },
+    {
+      "role": "Risk & Compliance Managers",
+      "permissions": "Maintain risk register; audits; regulatory reporting; monitor KRIs"
+    },
+    {
+      "role": "Security & Privacy Leads",
+      "permissions": "Threat modeling; pen\u2011tests; data protection; incident response"
+    },
+    {
+      "role": "Fairness & Ethics Leads",
+      "permissions": "Bias detection; mitigation strategy; ethical impact assessments"
+    },
+    {
+      "role": "Transparency Specialists",
+      "permissions": "Model/Data Cards; explainability packs; scorecards"
+    },
+    {
+      "role": "AI Project Leads (Responsible Owners)",
+      "permissions": "Accountable for governance completion; coordinate artifacts and fixes"
+    },
+    {
+      "role": "Data Scientists & ML Engineers",
+      "permissions": "Implement fairness, robustness, explainability; address findings"
+    },
+    {
+      "role": "MLOps / DevOps Engineers",
+      "permissions": "Monitoring, alerting, rollout/rollback; evidence vault integration"
+    },
+    {
+      "role": "AI Product Managers",
+      "permissions": "User impact & acceptance criteria; release decisions; stakeholder comms"
+    }
+  ],
+  "decision_rules": {
+    "columns": [
+      "Gate",
+      "Checkpoints (approx)",
+      "Critical Blockers",
+      "Approval Rule",
+      "Possible Outcomes"
+    ],
+    "rows": [
+      {
+        "Gate": "G0: Ethics Fit",
+        "Checkpoints (approx)": "10",
+        "Critical Blockers": "Prohibited use case; misalignment with values",
+        "Approval Rule": "\u226580% pass; no critical fails",
+        "Possible Outcomes": "Approve / Rescope / Reject"
+      },
+      {
+        "Gate": "G1: Data & Policy Compliance",
+        "Checkpoints (approx)": "10",
+        "Critical Blockers": "No consent; missing Data Card; GDPR/CCPA/HIPAA non-compliance",
+        "Approval Rule": "\u226590% pass; all high\u2011risk data mitigated",
+        "Possible Outcomes": "Approve / Rescope / Reject"
+      },
+      {
+        "Gate": "G2: Model Build",
+        "Checkpoints (approx)": "12",
+        "Critical Blockers": "Fairness threshold fail; missing explainability",
+        "Approval Rule": "\u226580% pass; fairness + explainability must pass",
+        "Possible Outcomes": "Approve / Rescope / Reject"
+      },
+      {
+        "Gate": "G3: Risk & Compliance",
+        "Checkpoints (approx)": "8",
+        "Critical Blockers": "Security/pen-test fail; missing guardrails",
+        "Approval Rule": "100% of security/compliance checkpoints pass",
+        "Possible Outcomes": "Approve / Reject"
+      },
+      {
+        "Gate": "G4: Operational Approval",
+        "Checkpoints (approx)": "6",
+        "Critical Blockers": "No rollback plan; monitoring not configured",
+        "Approval Rule": "All operational readiness checkpoints pass",
+        "Possible Outcomes": "Approve / Reject"
+      },
+      {
+        "Gate": "G5: Continuous Audit",
+        "Checkpoints (approx)": "Ongoing",
+        "Critical Blockers": "Ignored drift/bias/compliance incidents",
+        "Approval Rule": "Project suspended if continuous audits fail",
+        "Possible Outcomes": "Continue / Suspend"
+      }
+    ]
+  },
+  "gates": [
+    {
+      "gate_id": "G0",
+      "gate_name": "Ethics_Fit_Checklist",
+      "checkpoints": [
+        {
+          "artifact": "Business justification documented",
+          "artifact_key": "business-justification-documented",
+          "submitted_by_role": "Product Owner",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Ethical alignment with company values",
+          "artifact_key": "ethical-alignment-with-company-values",
+          "submitted_by_role": "Governance Officer",
+          "reviewed_by_role": "AI Governance Board",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Risk classification (EU AI Act, NIST RMF)",
+          "artifact_key": "risk-classification-eu-ai-act-nist-rmf",
+          "submitted_by_role": "Governance Officer",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Prohibited use case screening",
+          "artifact_key": "prohibited-use-case-screening",
+          "submitted_by_role": "Governance Officer",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Intended user identification",
+          "artifact_key": "intended-user-identification",
+          "submitted_by_role": "AI Product Manager",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Initial DPIA/PIA created",
+          "artifact_key": "initial-dpia-pia-created",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Stakeholders mapped",
+          "artifact_key": "stakeholders-mapped",
+          "submitted_by_role": "AI Product Manager",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Jurisdiction identified",
+          "artifact_key": "jurisdiction-identified",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        }
+      ]
+    },
+    {
+      "gate_id": "G1",
+      "gate_name": "Data_Policy_Checklist",
+      "checkpoints": [
+        {
+          "artifact": "Data consent/licensing validated",
+          "artifact_key": "data-consent-licensing-validated",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Data lineage captured",
+          "artifact_key": "data-lineage-captured",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Data quality assessment",
+          "artifact_key": "data-quality-assessment",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Sensitive attributes flagged",
+          "artifact_key": "sensitive-attributes-flagged",
+          "submitted_by_role": "Responsible AI Officer",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Data Card completed",
+          "artifact_key": "data-card-completed",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Regulatory mapping (GDPR/CCPA/HIPAA)",
+          "artifact_key": "regulatory-mapping-gdpr-ccpa-hipaa",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Policy validation executed",
+          "artifact_key": "policy-validation-executed",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Data anonymization/masking status",
+          "artifact_key": "data-anonymization-masking-status",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        }
+      ]
+    },
+    {
+      "gate_id": "G2",
+      "gate_name": "Model_Build_Checklist",
+      "checkpoints": [
+        {
+          "artifact": "Fairness metrics tested",
+          "artifact_key": "fairness-metrics-tested",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Explainability outputs produced (SHAP/LIME)",
+          "artifact_key": "explainability-outputs-produced-shap-lime",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Robustness tests executed",
+          "artifact_key": "robustness-tests-executed",
+          "submitted_by_role": "Tech Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Baseline metrics validated",
+          "artifact_key": "baseline-metrics-validated",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Tech Lead",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Model versioning & lineage captured",
+          "artifact_key": "model-versioning-lineage-captured",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Security vulnerability scan (libs/dependencies)",
+          "artifact_key": "security-vulnerability-scan-libs-dependencies",
+          "submitted_by_role": "Security Lead",
+          "reviewed_by_role": "Tech Lead",
+          "initial_status": ""
+        }
+      ]
+    },
+    {
+      "gate_id": "G3",
+      "gate_name": "Risk_Compliance_Checklist",
+      "checkpoints": [
+        {
+          "artifact": "Security penetration tests passed",
+          "artifact_key": "security-penetration-tests-passed",
+          "submitted_by_role": "Security Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Privacy & secrets scans completed",
+          "artifact_key": "privacy-secrets-scans-completed",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "GenAI guardrails validated",
+          "artifact_key": "genai-guardrails-validated",
+          "submitted_by_role": "Security Lead",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "SLA/SLO documented",
+          "artifact_key": "sla-slo-documented",
+          "submitted_by_role": "Product Owner",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Residual risk memo approved",
+          "artifact_key": "residual-risk-memo-approved",
+          "submitted_by_role": "Governance Officer",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Compliance checklist completed",
+          "artifact_key": "compliance-checklist-completed",
+          "submitted_by_role": "Compliance Lead",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Audit logs prepared",
+          "artifact_key": "audit-logs-prepared",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        }
+      ]
+    },
+    {
+      "gate_id": "G4",
+      "gate_name": "Operational_Approval_Checkli",
+      "checkpoints": [
+        {
+          "artifact": "Monitoring dashboards configured",
+          "artifact_key": "monitoring-dashboards-configured",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Product Owner",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Alerting setup validated",
+          "artifact_key": "alerting-setup-validated",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Rollback plan documented",
+          "artifact_key": "rollback-plan-documented",
+          "submitted_by_role": "Tech Lead",
+          "reviewed_by_role": "Product Owner",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Evidence Vault integration tested",
+          "artifact_key": "evidence-vault-integration-tested",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "On-call responsibilities assigned",
+          "artifact_key": "on-call-responsibilities-assigned",
+          "submitted_by_role": "Product Owner",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Release approval sign-off",
+          "artifact_key": "release-approval-sign-off",
+          "submitted_by_role": "Product Owner",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        }
+      ]
+    },
+    {
+      "gate_id": "G5",
+      "gate_name": "Continuous_Audit_Checklist",
+      "checkpoints": [
+        {
+          "artifact": "Drift detection running",
+          "artifact_key": "drift-detection-running",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Bias detection alerts monitored",
+          "artifact_key": "bias-detection-alerts-monitored",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Responsible AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Quarterly governance review performed",
+          "artifact_key": "quarterly-governance-review-performed",
+          "submitted_by_role": "Governance Officer",
+          "reviewed_by_role": "Chief AI Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Incident log maintained",
+          "artifact_key": "incident-log-maintained",
+          "submitted_by_role": "MLOps Engineer",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Retraining/redeployment documented",
+          "artifact_key": "retraining-redeployment-documented",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        },
+        {
+          "artifact": "Factsheets updated",
+          "artifact_key": "factsheets-updated",
+          "submitted_by_role": "Data Scientist",
+          "reviewed_by_role": "Governance Officer",
+          "initial_status": ""
+        }
+      ]
+    }
+  ],
+  "artifact_normalization": "lowercase, non-alnum -> '-'"
+}

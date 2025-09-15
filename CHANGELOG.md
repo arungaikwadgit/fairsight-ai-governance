@@ -1,0 +1,12 @@
+# Changelog
+- Fixed escaped quotes and triple-quote issues
+- Replaced st.experimental_rerun with st.rerun
+- Added import time where needed
+- Included assets/logo.png (200x200)
+- Settings (CAIO-only) for OpenAPI key + model
+- Swimlane AI Suggestion per checkpoint (Reviewer/CAIO)
+- Removed st.dialog usage; using container/forms
+- Refactored render_swimlane_table to gate_obj
+- Seeded 3 default projects; login form submits on Enter
+- Bundled governance_config.json from Excel
+- Included README, SETUP, DEPLOY, ADMIN, requirements

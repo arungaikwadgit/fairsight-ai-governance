@@ -1,157 +1,153 @@
 # app.py
 import os
-import json
 import time
 import streamlit as st
-from pathlib import Path
-from typing import Dict, Any, List
 
-from auth import login, get_current_user_role, ensure_default_users
-from firestore_db import DB
-from workflow import WORKFLOW_GATES, can_advance_gate, gate_requirements_text
-from ai import recommend_next_steps, train_policy_notes
+from config_loader import load_config, get_gates, get_gate_by_id
+from auth import ensure_default_users, login, logout
+from db import DB
+from ui_components import (
+    render_topbar, render_footer, render_gate_tabs, render_swimlane_table,
+    render_cxo_dashboard, render_add_project_form, render_help_page,
+    render_settings_page, render_home_header
+)
 
-st.set_page_config(page_title="Fair Sight AI Governance", page_icon="assets/logo.png", layout="wide")
+st.set_page_config(page_title="Fair Sight AI Governance", page_icon="🛡️", layout="wide")
 
-# Inject Tailwind-like utility styles (subset) for Streamlit via CSS
-with open("styles.css", "r", encoding="utf-8") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+# Load styles
+if os.path.exists("styles.css"):
+    with open("styles.css", "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Header
-logo_col, title_col = st.columns([1,6])
-with logo_col:
-    st.image("assets/logo.png", use_column_width=True)
-with title_col:
-    st.markdown('<div class="app-title">Fair Sight AI Governance</div>', unsafe_allow_html=True)
-    st.caption("Track AI projects, enforce ethical gates, and use AI to recommend next steps.")
-
-# Auth
+CONFIG = load_config("governance_config.json")
 ensure_default_users()
-st.divider()
-st.subheader("Sign in")
-username = st.text_input("Username", key="user")
-password = st.text_input("Password", type="password", key="pwd")
-if st.button("Sign in", type="primary"):
-    if login(username, password):
-        st.session_state["auth_user"] = username
-        st.session_state["role"] = get_current_user_role(username)
-        st.success(f"Welcome, {username}! Role: {st.session_state['role']}")
-    else:
-        st.error("Invalid username or password.")
 
-if "auth_user" not in st.session_state:
-    st.stop()
-
-role = st.session_state["role"]
+# persistent DB
 db = DB()
 
-st.divider()
-st.subheader("Project Dashboard")
-
-# Create new project (project owner or CAIO)
-with st.expander("➕ Create New Project"):
-    pname = st.text_input("Project Name")
-    pdesc = st.text_area("Brief Description")
-    if st.button("Create Project"):
-        if pname.strip():
-            pid = db.create_project({
-                "name": pname.strip(),
-                "description": pdesc.strip(),
-                "owner": st.session_state["auth_user"],
+# ---- Seed default projects if none ----
+try:
+    if not db.list_projects():
+        first_gate = get_gates()[0]["gate_id"] if get_gates() else ""
+        demo_now = time.time()
+        for name in ["AI Risk Scoring Pilot", "Customer Chatbot Revamp", "Forecast Model V2"]:
+            db.create_project({
+                "name": name,
+                "description": "Demo project seeded on first run",
+                "owner": "demo_owner",
+                "type": "Prototype",
+                "start_date": "",
                 "status": "ONGOING",
-                "current_gate_index": 0,
-                "artifacts": {},  # gate_index -> list of {name, path/url}
-                "ethics_checks": {},
-                "created_at": time.time(),
-                "updated_at": time.time(),
+                "current_gate_id": first_gate,
+                "created_at": demo_now,
+                "updated_at": demo_now
             })
-            st.success(f"Created project: {pname} (ID: {pid})")
-        else:
-            st.warning("Project name required.")
+except Exception as _e:
+    pass
 
-# Project list
-projects = db.list_projects()
-if not projects:
-    st.info("No projects yet. Create one above.")
-else:
-    for p in projects:
-        with st.container(border=True):
-            left, mid, right = st.columns([3,3,2])
-            with left:
-                st.markdown(f"**{p['name']}**")
-                st.caption(p.get("description",""))
-                st.text(f"Owner: {p.get('owner','')}")
-            with mid:
-                gate_idx = p.get("current_gate_index", 0)
-                st.text(f"Stage: {gate_idx+1}/{len(WORKFLOW_GATES)} — {WORKFLOW_GATES[gate_idx]['name']}")
-                st.progress(int((gate_idx+1)/len(WORKFLOW_GATES)*100))
-            with right:
-                st.text(f"Status: {p.get('status','')}")
-                if st.button("Open", key=f"open_{p['id']}"):
-                    st.session_state["open_project"] = p["id"]
+def set_page(page):
+    st.session_state["page"] = page
 
-# Detail view
-if "open_project" in st.session_state:
-    pid = st.session_state["open_project"]
-    proj = db.get_project(pid)
-    if not proj:
-        st.error("Project not found.")
+if "page" not in st.session_state:
+    st.session_state["page"] = "Login"
+
+# Top Bar & Menu
+render_topbar()
+
+with st.sidebar:
+    st.markdown("### Menu")
+    if "auth_user" not in st.session_state:
+        if st.button("Login", use_container_width=True):
+            set_page("Login")
     else:
-        st.header(f"Project: {proj['name']}")
-        st.caption(proj.get("description",""))
-        gate_idx = proj.get("current_gate_index", 0)
-        current_gate = WORKFLOW_GATES[gate_idx]
-
-        # Artifacts for current gate
-        st.subheader(f"Current Gate: {current_gate['name']}")
-        st.markdown(gate_requirements_text(current_gate))
-
-        with st.expander("Upload artifacts for this gate"):
-            uploaded = st.file_uploader("Upload files", accept_multiple_files=True)
-            if uploaded:
-                saved_paths = []
-                for uf in uploaded:
-                    # Save locally (demo); in Firebase variation we'd push to Storage
-                    save_dir = Path("uploads") / pid / f"gate_{gate_idx}"
-                    save_dir.mkdir(parents=True, exist_ok=True)
-                    path = save_dir / uf.name
-                    with open(path, "wb") as f:
-                        f.write(uf.getbuffer())
-                    saved_paths.append(str(path))
-                db.add_artifacts(pid, gate_idx, saved_paths)
-                st.success(f"Uploaded {len(saved_paths)} artifact(s).")
-
+        if st.button("Home", use_container_width=True):
+            set_page("Home")
+        if st.button("CXO Dashboard", use_container_width=True):
+            set_page("CXO Dashboard")
+        if st.button("Add Project", use_container_width=True):
+            set_page("Add Project")
+        if st.session_state.get("role","") == "ChiefAIOfficer":
+            if st.button("Settings", use_container_width=True):
+                set_page("Settings")
+        if st.button("Help", use_container_width=True):
+            set_page("Help")
         st.divider()
-        # AI Recommendation panel
-        st.subheader("AI Recommendation Model")
-        st.caption("Get next-step guidance based on project details, artifacts, and ethical criteria.")
-        if st.button("Generate Recommendations"):
-            with st.spinner("Consulting AI..."):
-                recs = recommend_next_steps(proj, db.get_project_artifacts(pid, gate_idx))
-            st.success("Recommendations ready.")
-            st.code(recs, language="markdown")
+        st.caption(f"Signed in as **{st.session_state.get('auth_user')}** ({st.session_state.get('role')})")
+        if st.button("Sign out", use_container_width=True):
+            logout()
+            set_page("Login")
+            st.rerun()
 
-        if role == "ChiefAIOfficer":
-            st.markdown("**Admin: Policy Training Notes**")
-            new_notes = st.text_area("Add/Update policy notes (feeds the AI prompt)")
-            if st.button("Save Policy Notes"):
-                train_policy_notes(new_notes)
-                st.success("Policy notes saved. Future recommendations will consider these.")
+# ------------- Pages -------------
 
-        st.divider()
-        # Advancement controls
-        st.subheader("Gate Review")
-        approve = st.checkbox("Approve this gate (meets ethical criteria).")
-        if st.button("Advance to Next Gate"):
-            if can_advance_gate(proj, db, approve):
-                db.advance_gate(pid)
-                st.success("Advanced to the next gate.")
-                st.experimental_rerun()
+def page_login():
+    st.header("Sign in")
+    col1, col2 = st.columns([3,2])
+    with col1:
+        with st.form("login_form", clear_on_submit=False):
+            username = st.text_input("Username")
+            password = st.text_input("Password", type="password")
+            submitted = st.form_submit_button("Sign in", type="primary")  # Enter triggers submit
+        if submitted:
+            if login(username, password):
+                st.success("Signed in.")
+                set_page("Home")
+                st.rerun()
             else:
-                st.error("Cannot advance: missing artifacts or approval.")
+                st.error("Invalid username or password.")
+    with col2:
+        st.image("assets/logo.png", caption="Fair Sight AI Governance", use_column_width=True)
 
-        st.divider()
-        if st.button("Mark Project Complete"):
-            db.update_project(pid, {"status": "COMPLETED"})
-            st.success("Project marked completed.")
-            st.experimental_rerun()
+def page_home():
+    render_home_header(db)
+    gates = get_gates()
+    if not gates:
+        st.error("No gates found. Please ensure governance_config.json is present and has a 'gates' array.")
+        return
+    active_tab, gate_ids = render_gate_tabs(gates, db)
+    gate = get_gate_by_id(active_tab, gates)
+    if not gate:
+        st.info("No gate selected.")
+        return
+    render_swimlane_table(db, gate, CONFIG)
+
+def page_cxo_dashboard():
+    render_cxo_dashboard(db)
+
+def page_add_project():
+    render_add_project_form(db)
+
+def page_settings():
+    if st.session_state.get("role","") != "ChiefAIOfficer":
+        st.error("Settings are restricted to the Chief AI Officer.")
+        return
+    render_settings_page(db)
+
+def page_help():
+    render_help_page(CONFIG)
+
+# ---------- Router ----------
+
+if st.session_state["page"] == "Login" and "auth_user" in st.session_state:
+    set_page("Home")
+
+page = st.session_state["page"]
+if page == "Login":
+    page_login()
+elif page == "Home":
+    if "auth_user" not in st.session_state:
+        page_login()
+    else:
+        page_home()
+elif page == "CXO Dashboard":
+    page_cxo_dashboard() if "auth_user" in st.session_state else page_login()
+elif page == "Add Project":
+    page_add_project() if "auth_user" in st.session_state else page_login()
+elif page == "Settings":
+    page_settings() if "auth_user" in st.session_state else page_login()
+elif page == "Help":
+    page_help()
+else:
+    st.write("Page not found.")
+
+render_footer()
